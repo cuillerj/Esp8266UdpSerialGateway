@@ -1,6 +1,8 @@
+// can transfer any 2 bytes binary data 
+// forbidenc 3 consecutive bytes "0x7f7f7f & 0x7f7e7f"
 #define debug 0
 String ver = "UdpSerialGateway";
-uint8_t vers = 0x01;
+uint8_t vers = 0x02;
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 #include <EEPROM.h>
@@ -291,16 +293,15 @@ int Serial_have_message() {
       //   Serial.print("-");
       switch (In1)
       {
-
         case 0x7f:  // looking for start of frame "0x7f-0x7e-0x7f-0x7e"
           if (frameFlag == 0)  // first 0x7f in the frame
           {
             frameFlag = 1;
             break;
           }
-          if (frameFlag == 2)  // 0x7f after 0x7f-0x7e
+          if (frameFlag == 2)
           {
-            frameFlag = 3;
+            frameFlag = 3;  // 0x7f after 0x7f-0x7e
             break;
           }
           if (frameFlag == 4)
@@ -332,6 +333,7 @@ int Serial_have_message() {
           }
           if (frameFlag == 5)
           {
+
             frameFlag = 6;
             break;
           }
@@ -358,7 +360,9 @@ int Serial_have_message() {
       switch (frameFlag)
       {
 
-        case 4:  // usefull data
+        case 4:  // useful data
+        case 5:  // useful data  added 23/02/2016
+        case 6:  // useful data  added 23/02/2016
           frameCount = frameCount + 1;
           switch (frameCount)
           {
