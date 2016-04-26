@@ -1,8 +1,9 @@
+// v3 modif gestion ssid 
 // can transfer any 2 bytes binary data 
 // forbidenc 3 consecutive bytes "0x7f7f7f & 0x7f7e7f"
 #define debug 0
 String ver = "UdpSerialGateway";
-uint8_t vers = 0x02;
+uint8_t vers = 0x03;
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 #include <EEPROM.h>
