@@ -1,5 +1,6 @@
 // can transfer any 2 bytes binary data 
 // forbidenc 3 consecutive bytes "0x7f7f7f & 0x7f7e7f"
+#include <Esp8266UdpSerialGatewayParameters.h>
 #define debug 0
 String ver = "UdpSerialGateway";
 uint8_t vers = 0x02;
@@ -10,24 +11,14 @@ uint8_t vers = 0x02;
 #include <stdio.h>
 #include <string.h>
 #include <C:\Users\jean\Documents\Arduino\libraries\Esp8266JC\Esp8266ReadEeprom.h>
-#define nbUdpHost 4
-#define nbUdpPort 4
-#define routePort  1830; // server robot
-#define tracePort  1831;  // server trace
+
 #define MAX_SRV_CLIENTS 1
-#define power_PIN 5  // relay off if wifi connection not established
-#define debug_PIN 14 // switch of udp trace when grounded 
-#define led_PIN 15  // off if wifi connection not established
+
 char hostUdp[nbUdpHost][100];
-char defaultHostUdp[100] = "jean-PC";
-unsigned int defaultudpPort0 = 1830; // server robot
-unsigned int defaultudpPort1 = 1831;  // server trace
-unsigned int defaultudpPort2 = 1832; // reserved
-unsigned int defaultudpPort3 = 1833;  // reserved
+
 unsigned int udpPort[nbUdpPort];
 String services[] = {"Route", "Trace"};
-byte robotIP[4] = {0xc0, 0xa8, 0x01, 0x05};  //
-unsigned int udpListenPort = 8888;
+
 char packetBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to hold incoming packet,
 //how many clients should be able to telnet to this ESP8266
 byte bufUdp[255];
@@ -38,10 +29,7 @@ const char* Ppassword ;
 char ssid[20] ;
 char password[50] ;
 */
-char ssid1[] = "cuiller3";       // first SSID  will be used at first
-char pass1[] = "5E98D9BEC6";      // first pass
-char ssid2[] = "cuiller";        // second SSID will be used in case on connection failure with the first ssid
-char pass2[] = "116A2E2CC25E3DDC3593E13D29";  // second pass
+
 uint8_t currentSSID = 0x01;         // current used SSID
 char stationId[5];
 
